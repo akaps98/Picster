@@ -1,0 +1,97 @@
+package com.example.picster;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.example.picster.model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+public class RegisterActivity extends AppCompatActivity {
+    private final String TAG = RegisterActivity.class.getName();
+    EditText newEmail, newPassword, doublecheckPassword;
+    Button registerButton;
+    private FirebaseAuth firebaseAuth;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_register);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        newEmail = findViewById(R.id.newEmail);
+        newPassword = findViewById(R.id.newPassword);
+        doublecheckPassword = findViewById(R.id.doublecheckPassword);
+        registerButton = findViewById(R.id.registerButton);
+
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = newEmail.getText().toString();
+                String password = newPassword.getText().toString();
+                String checkPassword = doublecheckPassword.getText().toString();
+
+                if (!email.equals("") && !password.equals("")) {
+                    if(password.length() >= 6) {
+                        if(password.equals(checkPassword)) {
+                            saveUser(email, password);
+                        } else {
+                            Toast.makeText(RegisterActivity.this, "Please double-check password", Toast.LENGTH_LONG).show();
+                        }
+                    } else {
+                        Toast.makeText(RegisterActivity.this, "Password length must exceed 6", Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    Toast.makeText(RegisterActivity.this, "Please input email and password", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    private void saveUser(String email, String password) {
+        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    writeNewUser(email, password);
+
+                    Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+
+                    Toast.makeText(RegisterActivity.this, "Success to register!", Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                    Toast.makeText(RegisterActivity.this, "Already exists email address.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void writeNewUser(String email, String password) {
+        User user = new User(email, password);
+
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+
+        database.collection("User").document(email).set(user)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+
+                    }
+                });
+    }
+}
