@@ -8,63 +8,80 @@
     android:background="@color/white"
     tools:context=".MainActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="406dp">
-
-        <ImageView
-            android:id="@+id/logoView"
-            android:layout_width="0dp"
-            android:layout_height="354dp"
-            android:layout_gravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <TextView
-            android:id="@+id/titleView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="92dp"
-            android:text="PICSTER"
-            android:textAlignment="center"
-            android:textColor="#000000"
-            android:textSize="36dp"
-            app:layout_constraintBottom_toBottomOf="@+id/logoView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/logoView"
-            app:layout_constraintVertical_bias="1.0" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:id="@+id/logoView"
+        android:layout_width="10dp"
+        android:layout_height="354dp"
+        android:layout_gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/input_email"
+        android:id="@+id/inputEmail"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
+        android:background="@drawable/main_edittext"
         android:ems="10"
         android:fontFamily="@font/sourcesanspro_light"
         android:inputType="textEmailAddress"
+        android:paddingStart="12dp"
         android:textColor="@color/black"
-        android:textColorHint="@color/black"
-        android:background="@drawable/main_edittext"/>
+        android:textColorHint="@color/black" />
 
     <EditText
-        android:id="@+id/input_password"
+        android:id="@+id/inputPassword"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
+        android:background="@drawable/main_edittext"
         android:ems="10"
         android:fontFamily="@font/sourcesanspro_light"
         android:inputType="textPassword"
+        android:paddingStart="12dp"
         android:textColor="@color/black"
         android:textColorHint="@color/black" />
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:fontFamily="@font/sourcesanspro_bold"
+        android:background="@android:color/transparent"
+        android:text="Log In"
+        android:textAllCaps="false"
+        android:textColor="@color/lightBlue"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/createButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/sourcesanspro_light"
+        android:text="Create an account"
+        android:textAllCaps="false"
+        android:textColor="@color/lightBlue"
+        android:textSize="18sp" />
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/googleLoginButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp" />
+
 </LinearLayout>

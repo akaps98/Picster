@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "789460871250",
+    "project_id": "picster-aba50",
+    "storage_bucket": "picster-aba50.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:789460871250:android:a8e427c08b7f9dcc99578b",
+        "android_client_info": {
+          "package_name": "com.example.picster"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBG-9x3-ni64P7En682g-f1rb7tP0GZZc0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
