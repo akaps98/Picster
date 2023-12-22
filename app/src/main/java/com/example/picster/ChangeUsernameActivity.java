@@ -20,23 +20,23 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
-public class UsernameActivity extends AppCompatActivity {
-    EditText newUsernameGoogle;
-    Button startButton;
+public class ChangeUsernameActivity extends AppCompatActivity {
+    EditText changedUsername;
+    Button changeUsernameButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_username);
+        setContentView(R.layout.activity_change_username);
 
-        newUsernameGoogle = findViewById(R.id.newUsernameGoogle);
-        startButton = findViewById(R.id.startButton);
+        changedUsername = findViewById(R.id.changedUsername);
+        changeUsernameButton = findViewById(R.id.changeUsernameButton);
 
-        startButton.setOnClickListener(new View.OnClickListener() {
+        changeUsernameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = newUsernameGoogle.getText().toString().trim();
+                String username = changedUsername.getText().toString().trim();
                 if (username.isEmpty()) {
-                    Toast.makeText(UsernameActivity.this, "Please input new username", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChangeUsernameActivity.this, "Please input new username", Toast.LENGTH_SHORT).show();
                 } else {
                     CollectionReference userRef = FirebaseFirestore.getInstance().collection("User");
                     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -51,7 +51,7 @@ public class UsernameActivity extends AppCompatActivity {
                                     if (task.isSuccessful()) {
                                         QuerySnapshot querySnapshot = task.getResult();
                                         if (querySnapshot != null && !querySnapshot.isEmpty()) {
-                                            Toast.makeText(UsernameActivity.this, "Already exists username", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(ChangeUsernameActivity.this, "Already exists username", Toast.LENGTH_SHORT).show();
                                         } else {
                                             userRef.whereEqualTo("email", email)
                                                     .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -67,9 +67,8 @@ public class UsernameActivity extends AppCompatActivity {
                                                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                                 @Override
                                                                                 public void onSuccess(Void aVoid) {
-                                                                                    Toast.makeText(UsernameActivity.this, "Log in Success!", Toast.LENGTH_SHORT).show();
-                                                                                    Intent intent = new Intent(UsernameActivity.this, DashboardActivity.class);
-                                                                                    startActivity(intent);
+                                                                                    Toast.makeText(ChangeUsernameActivity.this, "Updated!", Toast.LENGTH_SHORT).show();
+                                                                                    finish();
                                                                                 }
                                                                             });
                                                                 }
@@ -78,7 +77,7 @@ public class UsernameActivity extends AppCompatActivity {
                                                     });
                                         }
                                     } else {
-                                        Toast.makeText(UsernameActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ChangeUsernameActivity.this, "Error", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
