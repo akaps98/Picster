@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_search"
+        android:title=""
+        android:icon="@drawable/ic_menu_search" />
+
+    <item
+        android:id="@+id/navigation_bookmarks"
+        android:title=""
+        android:icon="@drawable/ic_menu_bookmark" />
+
+    <item
+        android:id="@+id/navigation_post"
+        android:title=""
+        android:icon="@drawable/app_logo_notitle" />
+
+    <item
+        android:id="@+id/navigation_user"
+        android:title=""
+        android:icon="@drawable/ic_menu_user" />
+
+    <item
+        android:id="@+id/navigation_menu"
+        android:title=""
+        android:icon="@drawable/ic_menu_menu" />
+</menu>
