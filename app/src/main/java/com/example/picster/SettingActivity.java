@@ -31,7 +31,15 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SettingActivity.this, ChangeUsernameActivity.class);
-                startActivityForResult(intent, 101);
+                startActivity(intent);
+            }
+        });
+
+        deleteAccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingActivity.this, DeleteAccountActivity.class);
+                startActivity(intent);
             }
         });
 
