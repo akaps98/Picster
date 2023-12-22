@@ -1,17 +1,17 @@
 package com.example.picster.model;
 
 public class User {
-    private String email, password, username;
+    private String email, username;
+    private boolean VIP; // isPaid?
 
-    public User(String email, String password) {
+    public User(String email) {
         this.email = email;
-        this.password = password;
         this.username = "";
+        this.VIP = false;
     }
 
-    public User(String email, String password, String username) {
+    public User(String email, String username) {
         this.email = email;
-        this.password = password;
         this.username = username;
     }
 
@@ -23,19 +23,19 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getUsername() {
         return username;
     }
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public boolean isVIP() {
+        return VIP;
+    }
+
+    public void setVIP(boolean VIP) {
+        this.VIP = VIP;
     }
 }
