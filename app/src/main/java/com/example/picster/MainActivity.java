@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.picster.model.User;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -20,12 +21,16 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class MainActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 123;
@@ -161,9 +166,38 @@ public class MainActivity extends AppCompatActivity {
 
     private void successGoogleLogin(FirebaseUser user) {
         if (user != null) {
-            Toast.makeText(MainActivity.this, "Log in Success!", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
-            startActivity(intent);
+            String email = user.getEmail();
+
+            CollectionReference userRef = FirebaseFirestore.getInstance().collection("User");
+
+            userRef.whereEqualTo("email", email).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        QuerySnapshot querySnapshot = task.getResult();
+                        if (querySnapshot != null && !querySnapshot.isEmpty()) {
+                            Toast.makeText(MainActivity.this, "Log in Success", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
+                            startActivity(intent);
+                        } else {
+                            User user = new User(email);
+                            FirebaseFirestore database = FirebaseFirestore.getInstance();
+
+                            database.collection("User").document(email).set(user)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+
+                                        }
+                                    });
+                            Toast.makeText(MainActivity.this, "Make your new username!", Toast.LENGTH_SHORT).show();
+
+                            Intent intent = new Intent(MainActivity.this, UsernameActivity.class);
+                            startActivity(intent);
+                        }
+                    }
+                }
+            });
         } else {
             Toast.makeText(MainActivity.this, "Log in failed", Toast.LENGTH_SHORT).show();
         }

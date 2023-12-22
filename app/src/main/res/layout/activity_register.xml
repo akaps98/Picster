@@ -44,7 +44,7 @@
             android:ems="10"
             android:hint="New Username"
             android:fontFamily="@font/sourcesanspro_light"
-            android:inputType="textEmailAddress"
+            android:inputType="text"
             android:paddingStart="16dp"
             android:textColor="@color/black"
             android:textColorHint="@color/black" />

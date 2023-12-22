@@ -41,10 +41,10 @@ public class RegisterActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = newEmail.getText().toString();
-                String password = newPassword.getText().toString();
-                String checkPassword = doublecheckPassword.getText().toString();
-                String username = newUsername.getText().toString();
+                String email = newEmail.getText().toString().trim();
+                String password = newPassword.getText().toString().trim();
+                String checkPassword = doublecheckPassword.getText().toString().trim();
+                String username = newUsername.getText().toString().trim();
 
                 if (!email.equals("") && !password.equals("")) {
                     if(password.length() >= 6) {
@@ -88,7 +88,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    writeNewUser(email, password, username);
+                    writeNewUser(email, username);
 
                     Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                     startActivity(intent);
@@ -104,8 +104,8 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void writeNewUser(String email, String password, String username) {
-        User user = new User(email, password, username);
+    private void writeNewUser(String email, String username) {
+        User user = new User(email, username);
 
         FirebaseFirestore database = FirebaseFirestore.getInstance();
 
@@ -116,9 +116,5 @@ public class RegisterActivity extends AppCompatActivity {
 
                     }
                 });
-    }
-
-    private void checkUsername(String email, String password, String username) {
-
     }
 }
