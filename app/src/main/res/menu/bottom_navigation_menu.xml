@@ -11,9 +11,10 @@
         android:icon="@drawable/ic_menu_bookmark" />
 
     <item
-        android:id="@+id/navigation_post"
+        android:id="@+id/navigation_home"
         android:title=""
-        android:icon="@drawable/app_logo_notitle" />
+        android:icon="@drawable/app_logo_notitle"
+        android:checked="true" />
 
     <item
         android:id="@+id/navigation_user"
@@ -21,7 +22,7 @@
         android:icon="@drawable/ic_menu_user" />
 
     <item
-        android:id="@+id/navigation_menu"
+        android:id="@+id/navigation_setting"
         android:title=""
-        android:icon="@drawable/ic_menu_menu" />
+        android:icon="@drawable/ic_menu_setting" />
 </menu>
