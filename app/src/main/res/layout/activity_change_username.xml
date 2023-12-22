@@ -43,7 +43,7 @@
             android:layout_gravity="center"
             android:background="@drawable/main_edittext"
             android:ems="10"
-            android:hint="New Username"
+            android:hint="New username"
             android:fontFamily="@font/sourcesanspro_light"
             android:inputType="text"
             android:paddingStart="16dp"
