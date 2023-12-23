@@ -26,6 +26,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginBottom="15dp"
         android:fontFamily="@font/sourcesanspro_light"
         android:text="After the payment, you can set posts as public!"
         android:textAlignment="center"
@@ -51,9 +52,9 @@
             android:id="@+id/bankSelector"
             android:layout_width="220dp"
             android:layout_height="50dp"
-            android:fontFamily="@font/sourcesanspro_light"
-            android:textColor="@color/black"
             android:background="@drawable/bank_spinner"
+            android:fontFamily="@font/sourcesanspro_light"
+            android:paddingStart="10dp"
             android:spinnerMode="dropdown" />
 
     </LinearLayout>
