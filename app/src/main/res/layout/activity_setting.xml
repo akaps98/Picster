@@ -7,6 +7,12 @@
     android:background="@color/white"
     tools:context=".SettingActivity">
 
+    <ScrollView
+        android:fillViewport="true"
+        android:scrollbars="none"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -151,6 +157,45 @@
                 android:layout_height="120dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_setting_card" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="50dp"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/addCardButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/sourcesanspro_semibold"
+                    android:text="Do payment"
+                    android:textAllCaps="false"
+                    android:textColor="@color/lightBlue"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="23dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="120dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="8dp"
                 android:src="@drawable/ic_setting_alarm" />
 
             <LinearLayout
@@ -188,7 +233,7 @@
             android:background="@drawable/ic_setting_logout" />
 
     </LinearLayout>
-
+    </ScrollView>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"

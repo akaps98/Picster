@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class SettingActivity extends AppCompatActivity {
     BottomNavigationView navigationView;
-    Button changeUsernameButton, changePasswordButton, deleteAccountButton, friendListButton, activityButton, logoutButton;
+    Button changeUsernameButton, changePasswordButton, deleteAccountButton, friendListButton, activityButton, addCardButton, logoutButton;
     FirebaseAuth auth = FirebaseAuth.getInstance();
     private GoogleSignInClient mGoogleSignInClient;
 
@@ -35,6 +35,7 @@ public class SettingActivity extends AppCompatActivity {
         changePasswordButton = findViewById(R.id.changePasswordButton);
         deleteAccountButton = findViewById(R.id.deleteAccountButton);
         friendListButton = findViewById(R.id.friendListButton);
+        addCardButton = findViewById(R.id.addCardButton);
         activityButton = findViewById(R.id.activityButton);
         logoutButton = findViewById(R.id.logoutButton);
 
@@ -75,6 +76,14 @@ public class SettingActivity extends AppCompatActivity {
         });
 
         deleteAccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingActivity.this, DeleteAccountActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        addCardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SettingActivity.this, DeleteAccountActivity.class);
