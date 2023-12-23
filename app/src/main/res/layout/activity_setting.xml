@@ -9,13 +9,13 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="2000dp"
+        android:layout_height="match_parent"
         android:fillViewport="true"
         android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="2000dp"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <ImageView
@@ -233,6 +233,7 @@
                 android:background="@drawable/ic_setting_logout" />
 
         </LinearLayout>
+
     </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -244,5 +245,6 @@
         app:itemIconTint="@color/menu_icon_color"
         app:labelVisibilityMode="unlabeled"
         app:menu="@menu/bottom_navigation_menu" />
+
 
 </RelativeLayout>
