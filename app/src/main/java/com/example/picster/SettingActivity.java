@@ -24,6 +24,7 @@ public class SettingActivity extends AppCompatActivity {
     Button changeUsernameButton, changePasswordButton, deleteAccountButton, friendListButton, activityButton, logoutButton;
     FirebaseAuth auth = FirebaseAuth.getInstance();
     private GoogleSignInClient mGoogleSignInClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

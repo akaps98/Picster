@@ -32,14 +32,14 @@ public class DeleteAccountActivity extends AppCompatActivity {
         confirmDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                currentUser.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
                                     FirebaseFirestore db = FirebaseFirestore.getInstance();
                                     db.collection("User")
-                                            .whereEqualTo("email", user.getEmail())
+                                            .whereEqualTo("email", currentUser.getEmail())
                                             .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {

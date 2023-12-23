@@ -24,6 +24,7 @@ public class RegisterActivity extends AppCompatActivity {
     EditText newUsername, newEmail, newPassword, doublecheckPassword;
     Button registerButton, alreadyHave;
     private FirebaseAuth firebaseAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

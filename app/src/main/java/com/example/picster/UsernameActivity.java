@@ -23,6 +23,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 public class UsernameActivity extends AppCompatActivity {
     EditText newUsernameGoogle;
     Button startButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
