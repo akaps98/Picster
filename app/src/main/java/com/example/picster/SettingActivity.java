@@ -14,15 +14,19 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class SettingActivity extends AppCompatActivity {
     BottomNavigationView navigationView;
     Button changeUsernameButton, changePasswordButton, deleteAccountButton, friendListButton, activityButton, addCardButton, logoutButton;
-    FirebaseAuth auth = FirebaseAuth.getInstance();
+    private FirebaseAuth auth = FirebaseAuth.getInstance();
     private GoogleSignInClient mGoogleSignInClient;
 
     @Override
@@ -86,8 +90,29 @@ public class SettingActivity extends AppCompatActivity {
         addCardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SettingActivity.this, PaymentActivity.class);
-                startActivity(intent);
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                FirebaseUser user = auth.getCurrentUser();
+
+                String email = user.getEmail();
+                DocumentReference userRef = db.collection("User").document(email);
+
+                userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+
+                            boolean VIP = document.getBoolean("vip");
+
+                            if(VIP) {
+                                Toast.makeText(SettingActivity.this, "You already did payment!", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Intent intent = new Intent(SettingActivity.this, PaymentActivity.class);
+                                startActivity(intent);
+                            }
+                        }
+                    }
+                });
             }
         });
 

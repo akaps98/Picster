@@ -21,11 +21,22 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/sourcesanspro_light"
+        android:text="After the payment, you can set posts as public!"
+        android:textAlignment="center"
+        android:textColor="@color/skyBlue"
+        android:textSize="24dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         android:layout_marginLeft="40dp"
         android:orientation="horizontal">
 
@@ -34,18 +45,45 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="8dp"
-            android:src="@drawable/ic_user" />
+            android:src="@drawable/ic_bank" />
+
+        <Spinner
+            android:id="@+id/bankSelector"
+            android:layout_width="220dp"
+            android:layout_height="50dp"
+            android:fontFamily="@font/sourcesanspro_light"
+            android:textColor="@color/black"
+            android:background="@drawable/bank_spinner"
+            android:spinnerMode="dropdown" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="40dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_card" />
 
         <EditText
-            android:id="@+id/changedUsername"
-            android:layout_width="wrap_content"
+            android:id="@+id/cardNumber"
+            android:layout_width="220dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:background="@drawable/main_edittext"
-            android:ems="10"
-            android:hint="New username"
+            android:ems="16"
+            android:maxLength="16"
             android:fontFamily="@font/sourcesanspro_light"
-            android:inputType="text"
+            android:hint="Card number"
+            android:inputType="number"
             android:paddingStart="16dp"
             android:textColor="@color/black"
             android:textColorHint="@color/black" />
@@ -53,16 +91,16 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/changeUsernameButton"
+        android:id="@+id/paymentButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="100dp"
         android:layout_gravity="center"
-        android:fontFamily="@font/sourcesanspro_bold"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="8dp"
         android:background="@android:color/transparent"
-        android:text="Change"
+        android:fontFamily="@font/sourcesanspro_bold"
+        android:text="Do payment"
         android:textAllCaps="false"
         android:textColor="@color/lightBlue"
         android:textSize="24sp" />
