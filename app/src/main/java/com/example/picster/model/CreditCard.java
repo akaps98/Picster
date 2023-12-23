@@ -1,9 +1,11 @@
 package com.example.picster.model;
 
-public class Bank {
+public class CreditCard {
     private String bank, cardNumber;
 
-    public Bank(String bank, String cardNumber) {
+    public CreditCard(){};
+
+    public CreditCard(String bank, String cardNumber) {
         this.bank = bank;
         this.cardNumber = cardNumber;
     }
