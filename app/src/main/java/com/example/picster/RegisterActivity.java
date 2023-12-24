@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.picster.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -115,6 +116,12 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void unused) {
 
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Handle failure to write user data
+                        Toast.makeText(RegisterActivity.this, "Failed to write new user info; " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }

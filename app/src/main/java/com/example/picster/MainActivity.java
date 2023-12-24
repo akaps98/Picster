@@ -21,6 +21,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -169,13 +170,16 @@ public class MainActivity extends AppCompatActivity {
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void unused) {
-
+                                            Toast.makeText(MainActivity.this, "Make your new username!", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(MainActivity.this, UsernameActivity.class);
+                                            startActivity(intent);
                                         }
-                                    });
-                            Toast.makeText(MainActivity.this, "Make your new username!", Toast.LENGTH_SHORT).show();
-
-                            Intent intent = new Intent(MainActivity.this, UsernameActivity.class);
-                            startActivity(intent);
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(MainActivity.this, "Failed to register; " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                            });
                         }
                     }
                 }
@@ -183,10 +187,5 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Toast.makeText(MainActivity.this, "Log in failed", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-
     }
 }

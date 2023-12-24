@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,36 +33,46 @@ public class DeleteAccountActivity extends AppCompatActivity {
         confirmDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                currentUser.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    FirebaseFirestore db = FirebaseFirestore.getInstance();
-                                    db.collection("User")
-                                            .whereEqualTo("email", currentUser.getEmail())
-                                            .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                    if (task.isSuccessful()) {
-                                                        for (QueryDocumentSnapshot document : task.getResult()) {
-                                                            db.collection("User").document(document.getId())
-                                                                    .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                                        @Override
-                                                                        public void onSuccess(Void aVoid) {
-                                                                            Toast.makeText(DeleteAccountActivity.this, "GOODBYE!", Toast.LENGTH_SHORT).show();
-                                                                            Intent intent = new Intent(DeleteAccountActivity.this, MainActivity.class);
-                                                                            startActivity(intent);
-                                                                            finish();
-                                                                        }
-                                                                    });
-                                                        }
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                if(user != null) {
+                    user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                db.collection("User")
+                                        .whereEqualTo("email", user.getEmail())
+                                        .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                if (task.isSuccessful()) {
+                                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                                        db.collection("User").document(document.getId())
+                                                                .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                    @Override
+                                                                    public void onSuccess(Void aVoid) {
+                                                                        Toast.makeText(DeleteAccountActivity.this, "GOODBYE!", Toast.LENGTH_SHORT).show();
+                                                                        Intent intent = new Intent(DeleteAccountActivity.this, MainActivity.class);
+                                                                        startActivity(intent);
+                                                                        finish();
+                                                                    }
+                                                                }).addOnFailureListener(new OnFailureListener() {
+                                                                    @Override
+                                                                    public void onFailure(@NonNull Exception e) {
+                                                                        Toast.makeText(DeleteAccountActivity.this, "Failed to delete account; " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                });
                                                     }
                                                 }
-                                            });
-                                }
+                                            }
+                                        });
                             }
+                        }
                     });
+                } else {
+                    Toast.makeText(DeleteAccountActivity.this, "Please log in first", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

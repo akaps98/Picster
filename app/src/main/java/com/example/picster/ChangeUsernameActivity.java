@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,9 +41,10 @@ public class ChangeUsernameActivity extends AppCompatActivity {
                     Toast.makeText(ChangeUsernameActivity.this, "Please input new username", Toast.LENGTH_SHORT).show();
                 } else {
                     CollectionReference userRef = FirebaseFirestore.getInstance().collection("User");
-                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-                    String email = currentUser.getEmail();
+                    if(user != null) {
+                    String email = user.getEmail();
 
                     userRef.whereEqualTo("username", username)
                             .get()
@@ -71,6 +73,11 @@ public class ChangeUsernameActivity extends AppCompatActivity {
                                                                                     Toast.makeText(ChangeUsernameActivity.this, "Updated!", Toast.LENGTH_SHORT).show();
                                                                                     finish();
                                                                                 }
+                                                                            }).addOnFailureListener(new OnFailureListener() {
+                                                                                @Override
+                                                                                public void onFailure(@NonNull Exception e) {
+                                                                                    Toast.makeText(ChangeUsernameActivity.this, "Failed to update; " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                                                }
                                                                             });
                                                                 }
                                                             }
@@ -82,6 +89,9 @@ public class ChangeUsernameActivity extends AppCompatActivity {
                                     }
                                 }
                             });
+                    } else {
+                        Toast.makeText(ChangeUsernameActivity.this, "Please log in first", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

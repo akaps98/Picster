@@ -1,5 +1,6 @@
 package com.example.picster;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.picster.model.CreditCard;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -56,21 +58,32 @@ public class PaymentActivity extends AppCompatActivity {
                 }
 
                 FirebaseUser user = auth.getCurrentUser();
-                String email = user.getEmail();
 
-                CreditCard creditCard = new CreditCard(selectedBank, enteredCardNumber);
+                if(user != null) {
+                    String email = user.getEmail();
 
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-                DocumentReference userRef = db.collection("User").document(email);
+                    CreditCard creditCard = new CreditCard(selectedBank, enteredCardNumber);
 
-                userRef.update("creditCard", creditCard, "vip", true)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(PaymentActivity.this, "Payment completed!", Toast.LENGTH_SHORT).show();
-                                finish();
-                            }
-                        });
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    DocumentReference userRef = db.collection("User").document(email);
+
+                    userRef.update("creditCard", creditCard, "vip", true)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(PaymentActivity.this, "Payment completed!", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    // Handle failure during update
+                                    Toast.makeText(PaymentActivity.this, "Failed to pay; " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else {
+                    Toast.makeText(PaymentActivity.this, "User is not logged in!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

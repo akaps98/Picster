@@ -14,6 +14,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -50,6 +51,8 @@ public class SettingActivity extends AppCompatActivity {
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
+        FirebaseUser user = auth.getCurrentUser();
+
         changeUsernameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,7 +65,6 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                FirebaseUser user = auth.getCurrentUser();
                 if (user != null) {
                     String email = user.getEmail();
 
@@ -74,7 +76,14 @@ public class SettingActivity extends AppCompatActivity {
                                         Toast.makeText(SettingActivity.this, "Please check your email inbox!", Toast.LENGTH_LONG).show();
                                     }
                                 }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(SettingActivity.this, "Failed to send email; " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                }
                             });
+                } else {
+                    Toast.makeText(SettingActivity.this, "Please log in first", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -91,48 +100,65 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
-                FirebaseUser user = auth.getCurrentUser();
 
-                String email = user.getEmail();
-                DocumentReference userRef = db.collection("User").document(email);
+                if(user != null) {
+                    String email = user.getEmail();
+                    DocumentReference userRef = db.collection("User").document(email);
 
-                userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if(task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
+                    userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
 
-                            boolean VIP = document.getBoolean("vip");
+                                boolean VIP = document.getBoolean("vip");
 
-                            if(VIP) {
-                                Toast.makeText(SettingActivity.this, "You already did payment!", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Intent intent = new Intent(SettingActivity.this, PaymentActivity.class);
-                                startActivity(intent);
+                                if (VIP) {
+                                    Toast.makeText(SettingActivity.this, "You already did payment!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Intent intent = new Intent(SettingActivity.this, PaymentActivity.class);
+                                    startActivity(intent);
+                                }
                             }
                         }
-                    }
-                });
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(SettingActivity.this, "Error; " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    Toast.makeText(SettingActivity.this, "Please log in first", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                auth.signOut();
-                mGoogleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(SettingActivity.this, "Logged out successfully", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(SettingActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            Toast.makeText(SettingActivity.this, "Logout failed", Toast.LENGTH_SHORT).show();
+                if (user != null) {
+                    auth.signOut();
+                    mGoogleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(SettingActivity.this, "Logged out successfully", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(SettingActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                Toast.makeText(SettingActivity.this, "Logout failed", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(SettingActivity.this, "Failed to sign out;" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    Toast.makeText(SettingActivity.this, "Please log in first", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
