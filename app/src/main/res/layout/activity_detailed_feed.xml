@@ -5,8 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     android:gravity="center"
-    tools:context=".SearchActivity">
+    tools:context=".DetailedFeedActivity">
     <ImageView
         android:id="@+id/logoImageView"
         android:layout_width="350dp"
@@ -18,8 +19,9 @@
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Search Page"
+        android:text="Detailed Feed Page"
         android:textAlignment="center"
+        android:textColor="#000000"
         android:textSize="30dp" />
 
     <LinearLayout
@@ -37,5 +39,4 @@
             app:labelVisibilityMode="unlabeled"
             app:menu="@menu/bottom_navigation_menu" />
     </LinearLayout>
-
 </LinearLayout>
