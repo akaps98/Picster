@@ -20,9 +20,16 @@
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Dashboard Page"
+        android:text="Dashboard Page\nList view of feeds"
         android:textAlignment="center"
         android:textSize="30dp" />
+
+    <Button
+        android:id="@+id/viewFeedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="50dp"
+        android:text="View Detailed Feed" />
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class DashboardActivity extends AppCompatActivity {
@@ -41,6 +43,15 @@ public class DashboardActivity extends AppCompatActivity {
                     startActivityForResult(settingIntent, 5);
                 }
                 return true;
+            }
+        });
+
+        Button viewFeedBtn = findViewById(R.id.viewFeedButton);
+        viewFeedBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), DetailedFeedActivity.class);
+                startActivity(intent);
             }
         });
     }

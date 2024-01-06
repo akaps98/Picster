@@ -6,8 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.w3c.dom.Text;
 
 public class DetailedFeedActivity extends AppCompatActivity {
     BottomNavigationView navigationView;
@@ -16,6 +21,14 @@ public class DetailedFeedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_feed);
 
+        ImageView backBtn = findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
+                startActivity(intent);
+            }
+        });
         navigationView = findViewById(R.id.bottom_navigation);
         navigationView.setSelectedItemId(R.id.navigation_home);
         navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
