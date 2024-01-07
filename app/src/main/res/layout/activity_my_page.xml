@@ -22,12 +22,49 @@
         android:text="My Page\nList view of feeds"
         android:textAlignment="center"
         android:textSize="30dp" />
+
     <Button
         android:id="@+id/viewBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="50dp"
         android:text="View My Detailed Feed" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginHorizontal="20dp">
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="300dp"
+            android:layout_marginRight="10dp">
+            <ImageView
+                android:id="@+id/userMainImage"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                app:srcCompat="@drawable/user_sample" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="267dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Username"
+            android:textColor="#000000"
+            android:textSize="20dp" />
+        <ImageView
+            android:id="@+id/editBtn"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            app:srcCompat="@drawable/add" />
+    </LinearLayout>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="337dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
