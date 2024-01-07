@@ -12,12 +12,12 @@ import android.widget.ImageView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MyPageActivity extends AppCompatActivity {
+public class UploadFeedActivity extends AppCompatActivity {
     BottomNavigationView navigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_page);
+        setContentView(R.layout.activity_upload_feed);
 
         navigationView = findViewById(R.id.bottom_navigation);
         navigationView.setSelectedItemId(R.id.navigation_user);
@@ -27,38 +27,30 @@ public class MyPageActivity extends AppCompatActivity {
                 int selected = item.getItemId();
 
                 if (selected == R.id.navigation_search) {
-                    Intent searchIntent = new Intent(MyPageActivity.this, SearchActivity.class);
+                    Intent searchIntent = new Intent(UploadFeedActivity.this, SearchActivity.class);
                     startActivityForResult(searchIntent, 1);
                 } else if (selected == R.id.navigation_bookmarks) {
-                    Intent bookmarkIntent = new Intent(MyPageActivity.this, BookmarkActivity.class);
-                    startActivityForResult(bookmarkIntent, 2);
+                    Intent homeIntent = new Intent(UploadFeedActivity.this, BookmarkActivity.class);
+                    startActivityForResult(homeIntent, 2);
                 } else if (selected == R.id.navigation_home) {
-                    Intent homeIntent = new Intent(MyPageActivity.this, DashboardActivity.class);
+                    Intent homeIntent = new Intent(UploadFeedActivity.this, DashboardActivity.class);
                     startActivityForResult(homeIntent, 3);
                 } else if (selected == R.id.navigation_user) {
-                    // stay
-                } else if (selected == R.id.navigation_setting) {
-                    Intent myPageIntent = new Intent(MyPageActivity.this, SettingActivity.class);
+                    Intent myPageIntent = new Intent(UploadFeedActivity.this, MyPageActivity.class);
                     startActivityForResult(myPageIntent, 4);
+                } else if (selected == R.id.navigation_setting) {
+                    Intent myPageIntent = new Intent(UploadFeedActivity.this, SettingActivity.class);
+                    startActivityForResult(myPageIntent, 5);
                 }
                 return true;
             }
         });
 
-        Button viewFeedBtn = findViewById(R.id.viewBtn);
-        viewFeedBtn.setOnClickListener(new View.OnClickListener() {
+        Button cancelBtn = findViewById(R.id.cancelBtn);
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MyFeedActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        ImageView uploadBtn = findViewById(R.id.uploadBtn);
-        uploadBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), UploadFeedActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MyPageActivity.class);
                 startActivity(intent);
             }
         });

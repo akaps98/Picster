@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
     android:gravity="center"
-    tools:context=".MyPageActivity">
+    android:background="@color/white"
+    tools:context=".UploadFeedActivity">
     <ImageView
         android:id="@+id/logoImageView"
         android:layout_width="350dp"
@@ -15,56 +16,28 @@
         android:layout_centerHorizontal="true"
         android:src="@drawable/title_logo" />
 
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="My Page\nList view of feeds"
+        android:text="Upload Feed Page"
         android:textAlignment="center"
+        android:textColor="@color/black"
         android:textSize="30dp" />
 
     <Button
-        android:id="@+id/viewBtn"
+        android:id="@+id/uploadBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="50dp"
-        android:text="View My Detailed Feed" />
-    <LinearLayout
+        android:layout_margin="30dp"
+        android:text="Upload" />
+    <Button
+        android:id="@+id/cancelBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginHorizontal="20dp">
-        <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="300dp"
-            android:layout_marginRight="10dp">
-            <ImageView
-                android:id="@+id/userMainImage"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
-                app:srcCompat="@drawable/user_sample" />
-        </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:id="@+id/userName"
-            android:layout_width="267dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Username"
-            android:textColor="#000000"
-            android:textSize="20dp" />
-        <ImageView
-            android:id="@+id/uploadBtn"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            app:srcCompat="@drawable/add" />
-    </LinearLayout>
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="337dp" />
+        android:layout_margin="30dp"
+        android:text="Cancel" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -81,5 +54,4 @@
             app:labelVisibilityMode="unlabeled"
             app:menu="@menu/bottom_navigation_menu" />
     </LinearLayout>
-
 </LinearLayout>
