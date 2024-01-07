@@ -13,9 +13,13 @@
         android:theme="@style/Theme.Picster"
         tools:targetApi="31">
         <activity
-            android:name=".UploadFeedActivity"
+            android:name=".FriendPageActivity"
             android:theme="@style/Theme.Material3.Light.NoActionBar"
             android:exported="false" />
+        <activity
+            android:name=".UploadFeedActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Light.NoActionBar" />
         <activity
             android:name=".MyFeedActivity"
             android:exported="false"

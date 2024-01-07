@@ -7,20 +7,34 @@
     android:orientation="vertical"
     android:background="@color/white"
     android:gravity="center"
-    tools:context=".MyPageActivity">
-    <ImageView
-        android:id="@+id/logoImageView"
-        android:layout_width="350dp"
-        android:layout_height="60dp"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/title_logo" />
+    tools:context=".FriendPageActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/backBtn"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            app:srcCompat="@drawable/back" />
+        <ImageView
+            android:id="@+id/logoImageView"
+            android:layout_width="350dp"
+            android:layout_height="60dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/title_logo"
+            android:layout_marginBottom="10dp"/>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="My Page\nList view of feeds"
+        android:text="Friend Page\nList view of feeds"
         android:textAlignment="center"
+        android:textColor="@color/black"
         android:layout_marginBottom="20dp"
         android:textSize="30dp" />
 
@@ -44,25 +58,20 @@
 
         <TextView
             android:id="@+id/userName"
-            android:layout_width="249dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Username"
             android:textColor="#000000"
             android:textSize="20dp" />
-        <ImageView
-            android:id="@+id/uploadBtn"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            app:srcCompat="@drawable/add" />
     </LinearLayout>
 
     <Button
-        android:id="@+id/viewBtn"
+        android:id="@+id/viewFeedBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:text="View My Detailed Feed" />
+        android:text="View Detailed Feed" />
 
     <ListView
         android:layout_width="match_parent"
