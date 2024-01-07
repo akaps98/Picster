@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginHorizontal="30dp"
-        android:text="View Detailed Feed" />
+        android:text="View Friend's Feed" />
     <Button
         android:id="@+id/viewFriendPageButton"
         android:layout_width="match_parent"

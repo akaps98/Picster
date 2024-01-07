@@ -1,7 +1,6 @@
 package com.example.picster;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -50,7 +49,7 @@ public class DashboardActivity extends AppCompatActivity {
         viewFeedBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), DetailedFeedActivity.class);
+                Intent intent = new Intent(getApplicationContext(), FriendFeedActivity.class);
                 startActivity(intent);
             }
         });
