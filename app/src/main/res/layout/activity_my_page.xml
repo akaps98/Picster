@@ -13,21 +13,14 @@
         android:layout_width="350dp"
         android:layout_height="60dp"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/title_logo" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="My Page\nList view of feeds"
-        android:textAlignment="center"
         android:layout_marginBottom="20dp"
-        android:textSize="30dp" />
+        android:src="@drawable/title_logo" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginBottom="20dp"
         android:gravity="center"
         android:layout_marginHorizontal="20dp">
         <androidx.cardview.widget.CardView
@@ -57,14 +50,8 @@
             app:srcCompat="@drawable/add" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/viewBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="View My Detailed Feed" />
-
     <ListView
+        android:id="@+id/feedListView"
         android:layout_width="match_parent"
         android:layout_height="337dp" />
 

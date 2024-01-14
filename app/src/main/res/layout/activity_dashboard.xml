@@ -16,28 +16,11 @@
         android:layout_centerHorizontal="true"
         android:src="@drawable/title_logo" />
 
-    <TextView
-        android:id="@+id/textView3"
+    <ListView
+        android:id="@+id/feedListView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Dashboard Page\nList view of feeds"
-        android:textAlignment="center"
-        android:textSize="30dp" />
+        android:layout_height="618dp" />
 
-    <Button
-        android:id="@+id/viewFeedButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginHorizontal="30dp"
-        android:text="View Friend's Feed" />
-    <Button
-        android:id="@+id/viewFriendPageButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginHorizontal="30dp"
-        android:text="View Friend's Page" />
 
     <LinearLayout
         android:layout_width="match_parent"
