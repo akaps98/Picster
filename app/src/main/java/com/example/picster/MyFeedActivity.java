@@ -39,7 +39,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class MyFeedActivity extends AppCompatActivity {
     BottomNavigationView navigationView;
@@ -143,6 +146,10 @@ public class MyFeedActivity extends AppCompatActivity {
 
             TextView usernameTextView = findViewById(R.id.userName);
             usernameTextView.setText(username);
+            TextView date = findViewById(R.id.feedDate);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd", Locale.getDefault());
+            String formattedDate = sdf.format(new Date(Long.parseLong(feed.getDate())));
+            date.setText(formattedDate);
             ImageView feedImage = findViewById(R.id.feedImage);
 
             // 다른데서는 이미지 이 코드로 잘 뜨는데 이 액티비티에서는 에러가 남. 수정 필요.
