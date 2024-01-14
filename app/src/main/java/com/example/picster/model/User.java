@@ -6,8 +6,16 @@ import java.util.List;
 public class User {
     private String email, username;
     private boolean VIP; // isPaid?
-    private List<User> friends;
+    private List<String> friends;
     private CreditCard creditCard;
+
+    public User() {
+        this.email = "";
+        this.username = "";
+        this.VIP = false;
+        this.friends = new ArrayList<>();
+        this.creditCard = new CreditCard();
+    }
 
     public User(String email) {
         this.email = email;
@@ -49,11 +57,11 @@ public class User {
         this.VIP = VIP;
     }
 
-    public List<User> getFriends() {
+    public List<String> getFriends() {
         return friends;
     }
 
-    public void setFriends(List<User> friends) {
+    public void setFriends(List<String> friends) {
         this.friends = friends;
     }
 
