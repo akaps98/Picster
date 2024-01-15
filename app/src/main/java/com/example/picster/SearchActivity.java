@@ -3,6 +3,7 @@ package com.example.picster;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Context;
 import android.content.Intent;
@@ -28,6 +29,7 @@ import com.example.picster.model.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -44,7 +46,7 @@ public class SearchActivity extends AppCompatActivity {
     RadioGroup searchOptions;
     SearchView searchView;
     ListView searchListView;
-    List<Feed> feeds;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +87,10 @@ public class SearchActivity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                searchButton.animate().alpha(0.2f).setDuration(150).withEndAction(() -> {
+                    searchButton.animate().alpha(1.0f).setDuration(150).start();
+                }).start();
+
                 int selectedRadioButtonId = searchOptions.getCheckedRadioButtonId();
 
                 String searchText = searchView.getQuery().toString().trim();
@@ -99,11 +105,11 @@ public class SearchActivity extends AppCompatActivity {
                     String selectedOption = selected.getText().toString();
                     String lowerCaseSearchText = searchText.toLowerCase(Locale.getDefault());
 
+                    FirebaseAuth auth = FirebaseAuth.getInstance();
+                    FirebaseUser currentUser = auth.getCurrentUser();
+
                     if (selectedOption.equals("Friend")) {
                         FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-                        FirebaseAuth auth = FirebaseAuth.getInstance();
-                        FirebaseUser currentUser = auth.getCurrentUser();
 
                         if (currentUser != null) {
                             db.collection("User")
@@ -122,7 +128,8 @@ public class SearchActivity extends AppCompatActivity {
                                             }
 
                                             if (searchedUserList.isEmpty()) {
-                                                Toast.makeText(SearchActivity.this, "No users found", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(SearchActivity.this, "No users found!", Toast.LENGTH_SHORT).show();
+                                                searchListView.setAdapter(null);
                                             } else {
                                                 UserListAdapter userListAdapter = new UserListAdapter(SearchActivity.this, searchedUserList);
                                                 searchListView.setAdapter(userListAdapter);
@@ -134,36 +141,61 @@ public class SearchActivity extends AppCompatActivity {
                         }
                     } else {
                         FirebaseFirestore db = FirebaseFirestore.getInstance();
+                        List<Feed> feeds = new ArrayList<>();
+
+                        searchListView.setAdapter(null);
 
                         db.collection("Feed")
                                 .get()
                                 .addOnSuccessListener(queryDocumentSnapshots -> {
-                                    feeds = new ArrayList<>();
                                     for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                                         Feed feed = document.toObject(Feed.class);
 
-                                        if (feed.getContent().toLowerCase().contains(lowerCaseSearchText)) {
-                                            feeds.add(feed);
+                                        boolean matchesSearchText = feed.getContent().toLowerCase().contains(lowerCaseSearchText);
+
+                                        List<String> friendsList = new ArrayList<>();
+
+                                        if (matchesSearchText) {
+                                            DocumentReference userRef = db.collection("User").document(currentUser.getEmail());
+
+                                            userRef.get().addOnSuccessListener(documentSnapshot -> {
+                                                if (documentSnapshot.exists()) {
+                                                    User loggedInUserInfo = documentSnapshot.toObject(User.class);
+                                                    if (loggedInUserInfo != null) {
+                                                        List<String> fetchedFriendsList = loggedInUserInfo.getFriends();
+                                                        if (fetchedFriendsList != null) {
+                                                            friendsList.addAll(fetchedFriendsList);
+
+                                                            if(!currentUser.getEmail().equals(feed.getId().split("\\d+")[0])) {
+                                                                if (friendsList.contains(feed.getId().split("\\d+")[0]) || feed.isPublic()) {
+                                                                    feeds.add(feed);
+                                                                }
+                                                            }
+
+                                                        }
+                                                    }
+                                                }
+                                                if (!feeds.isEmpty()) {
+                                                    FeedAdapter adapter = new FeedAdapter(SearchActivity.this, R.layout.home_feed_list_item, feeds);
+                                                    searchListView.setAdapter(adapter);
+
+                                                    searchListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                                        @Override
+                                                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                                            Feed clickedFeed = feeds.get(position);
+
+                                                            Intent intent = new Intent(SearchActivity.this, FriendFeedActivity.class);
+                                                            intent.putExtra("clickedFeed", clickedFeed);
+                                                            startActivity(intent);
+                                                        }
+                                                    });
+                                                }
+                                            }).addOnFailureListener(e -> {
+                                                Toast.makeText(SearchActivity.this, "Error.", Toast.LENGTH_SHORT).show();
+                                            });
                                         }
                                     }
 
-                                    if (feeds.isEmpty()) {
-                                        Toast.makeText(SearchActivity.this, "No feeds found", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        FeedAdapter adapter = new FeedAdapter(SearchActivity.this, R.layout.home_feed_list_item, feeds);
-                                        searchListView.setAdapter(adapter);
-
-                                        searchListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                            @Override
-                                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                                Feed clickedFeed = feeds.get(position);
-
-                                                Intent intent = new Intent(SearchActivity.this, FriendFeedActivity.class);
-                                                intent.putExtra("clickedFeed", clickedFeed);
-                                                startActivity(intent);
-                                            }
-                                        });
-                                    }
                                 })
                                 .addOnFailureListener(e -> {
                                     Toast.makeText(SearchActivity.this, "Error; " + e.getMessage(), Toast.LENGTH_SHORT).show();
