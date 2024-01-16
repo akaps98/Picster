@@ -100,8 +100,8 @@
 
                 <ImageView
                     android:id="@+id/imageView5"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     app:srcCompat="@drawable/heart_fill" />
 
                 <TextView
@@ -115,8 +115,8 @@
 
                 <ImageView
                     android:id="@+id/imageView6"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_marginLeft="3dp"
                     app:srcCompat="@drawable/comment" />
 
@@ -131,16 +131,16 @@
 
                 <ImageView
                     android:id="@+id/likeImage"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="33dp"
+                    android:layout_height="33dp"
                     android:layout_marginLeft="120dp"
                     android:layout_marginRight="3dp"
                     app:srcCompat="@drawable/heart_empty" />
 
                 <ImageView
                     android:id="@+id/saveImage"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="33dp"
+                    android:layout_height="33dp"
                     app:srcCompat="@drawable/save_empty" />
             </LinearLayout>
 
