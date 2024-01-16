@@ -225,6 +225,27 @@ public class FriendFeedActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        ImageView friendImage = findViewById(R.id.feedUserImage);
+        TextView friendUsername = findViewById(R.id.feedUserName);
+        friendImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FriendFeedActivity.this, FriendPageActivity.class);
+                intent.putExtra("friendUsername", feed.getUsername());
+                intent.putExtra("previousAct", previousAct);
+                startActivity(intent);
+            }
+        });
+        friendUsername.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FriendFeedActivity.this, FriendPageActivity.class);
+                intent.putExtra("friendUsername", feed.getUsername());
+                intent.putExtra("previousAct", previousAct);
+                startActivity(intent);
+            }
+        });
     }
 
     private void addCommentToFeed(String feedId, Comment newComment) {

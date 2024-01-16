@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -245,6 +246,23 @@ public class MyFeedActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(MyFeedActivity.this, "Enter comment text.", Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+
+        ImageView userImage = findViewById(R.id.userMainImage);
+        TextView userName = findViewById(R.id.userName);
+        userImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MyPageActivity.class);
+                startActivity(intent);
+            }
+        });
+        userName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MyPageActivity.class);
+                startActivity(intent);
             }
         });
     }
