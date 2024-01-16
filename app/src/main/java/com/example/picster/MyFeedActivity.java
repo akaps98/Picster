@@ -147,30 +147,26 @@ public class MyFeedActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        if (intent.hasExtra("selectedFeed") && intent.hasExtra("username")) {
-            feed = (Feed) intent.getSerializableExtra("selectedFeed");
-            username = intent.getStringExtra("username");
+        feed = (Feed) getIntent().getSerializableExtra("selectedFeed");
+        username = intent.getStringExtra("username");
 
-            TextView usernameTextView = findViewById(R.id.userName);
-            usernameTextView.setText(username);
-            TextView date = findViewById(R.id.feedDate);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd", Locale.getDefault());
-            String formattedDate = sdf.format(new Date(Long.parseLong(feed.getDate())));
-            date.setText(formattedDate);
-            ImageView feedImage = findViewById(R.id.feedImage);
+        TextView usernameTextView = findViewById(R.id.userName);
+        usernameTextView.setText(username);
+        TextView date = findViewById(R.id.feedDate);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd", Locale.getDefault());
+        String formattedDate = sdf.format(new Date(Long.parseLong(feed.getDate())));
+        date.setText(formattedDate);
+        ImageView feedImage = findViewById(R.id.feedPicture);
+        Glide.with(this).load(feed.getImageUri()).into(feedImage);
 
-            // 다른데서는 이미지 이 코드로 잘 뜨는데 이 액티비티에서는 에러가 남. 수정 필요.
-            //Glide.with(this).load(feed.getImageUri()).into(feedImage);
+        TextView feedText = findViewById(R.id.feedText);
+        feedText.setText(feed.getContent());
+        likes = findViewById(R.id.likeNumber);
+        likes.setText(String.valueOf(feed.getLikes()));
+        commentNum = findViewById(R.id.commentNumber);
+        commentNum.setText(String.valueOf(feed.getComments().size()));
 
-            TextView feedText = findViewById(R.id.feedText);
-            feedText.setText(feed.getContent());
-            likes = findViewById(R.id.likeNumber);
-            likes.setText(String.valueOf(feed.getLikes()));
-            commentNum = findViewById(R.id.commentNumber);
-            commentNum.setText(String.valueOf(feed.getComments().size()));
-
-            comments = feed.getComments();
-        }
+        comments = feed.getComments();
 
         ImageView likeBtn = findViewById(R.id.likeImage);
 
