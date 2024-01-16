@@ -53,7 +53,7 @@
     <ListView
         android:id="@+id/feedListView"
         android:layout_width="match_parent"
-        android:layout_height="337dp" />
+        android:layout_height="524dp" />
 
     <LinearLayout
         android:layout_width="match_parent"

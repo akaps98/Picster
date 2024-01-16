@@ -78,6 +78,7 @@
                 android:id="@+id/feedPicture"
                 android:layout_width="300dp"
                 android:layout_height="300dp"
+                android:background="#E7F2F4"
                 app:srcCompat="@drawable/pic_sample1" />
 
             <TextView
@@ -143,10 +144,16 @@
                     app:srcCompat="@drawable/save_empty" />
             </LinearLayout>
 
-            <ListView
-                android:id="@+id/commentList"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:orientation="horizontal">
+                <ListView
+                    android:id="@+id/commentList"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -192,7 +199,9 @@
             </LinearLayout>
 
         </LinearLayout>
+
     </ScrollView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
@@ -208,4 +217,5 @@
             app:labelVisibilityMode="unlabeled"
             app:menu="@menu/bottom_navigation_menu" />
     </LinearLayout>
+
 </LinearLayout>

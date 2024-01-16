@@ -40,6 +40,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -50,10 +51,16 @@ public class MyFeedActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     String username;
     List<Comment> comments;
+    ArrayList<String> liked;
+    String userEmail;
+    TextView likes, commentNum;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_feed);
+
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
 
         navigationView = findViewById(R.id.bottom_navigation);
         navigationView.setSelectedItemId(R.id.navigation_user);
@@ -157,13 +164,73 @@ public class MyFeedActivity extends AppCompatActivity {
 
             TextView feedText = findViewById(R.id.feedText);
             feedText.setText(feed.getContent());
-            TextView likes = findViewById(R.id.likeNumber);
+            likes = findViewById(R.id.likeNumber);
             likes.setText(String.valueOf(feed.getLikes()));
-            TextView commentNum = findViewById(R.id.commentNumber);
+            commentNum = findViewById(R.id.commentNumber);
             commentNum.setText(String.valueOf(feed.getComments().size()));
 
             comments = feed.getComments();
         }
+
+        ImageView likeBtn = findViewById(R.id.likeImage);
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            userEmail = currentUser.getEmail();
+            database.collection("User")
+                    .document(userEmail)
+                    .get()
+                    .addOnSuccessListener(documentSnapshot -> {
+                        if (documentSnapshot.exists()) {
+                            liked = (ArrayList<String>) documentSnapshot.get("like");
+
+                            if (liked.contains(feed.getId())) {
+                                likeBtn.setImageResource(R.drawable.heart_fill);
+                            }
+                        } else {
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(MyFeedActivity.this, "Failed to retrieve lists", Toast.LENGTH_SHORT).show();
+                    });
+        }
+
+        likeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (liked.contains(feed.getId())) {
+                    liked.remove(feed.getId());
+                    likeBtn.setImageResource(R.drawable.heart_empty);
+                    int currentLikes = feed.getLikes();
+                    currentLikes--;
+                    feed.setLikes(currentLikes);
+                } else {
+                    liked.add(feed.getId());
+                    likeBtn.setImageResource(R.drawable.heart_fill);
+                    int currentLikes = feed.getLikes();
+                    currentLikes++;
+                    feed.setLikes(currentLikes);
+                }
+                likes.setText(String.valueOf(feed.getLikes()));
+
+                database.collection("User")
+                        .document(userEmail)
+                        .update("like", liked)
+                        .addOnSuccessListener(aVoid -> {
+                        })
+                        .addOnFailureListener(e -> {
+                            Toast.makeText(MyFeedActivity.this, "Failed to update status", Toast.LENGTH_SHORT).show();
+                        });
+                database.collection("Feed")
+                        .document(feed.getId())
+                        .update("likes", feed.getLikes())
+                        .addOnSuccessListener(aVoid -> {
+                        })
+                        .addOnFailureListener(e -> {
+                            Toast.makeText(MyFeedActivity.this, "Failed to update likes count", Toast.LENGTH_SHORT).show();
+                        });
+            }
+        });
 
         ListView commentListView = findViewById(R.id.commentList);
         CommentAdapter commentAdapter = new CommentAdapter(this, comments);
@@ -196,7 +263,8 @@ public class MyFeedActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(MyFeedActivity.this, "Comment added successfully", Toast.LENGTH_SHORT).show();
-
+                        int newNum = feed.getComments().size() + 1;
+                        commentNum.setText(String.valueOf(newNum));
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

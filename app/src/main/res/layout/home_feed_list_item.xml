@@ -15,6 +15,7 @@
         <ImageView
             android:id="@+id/feedImage"
             android:layout_width="170dp"
+            android:background="#E7F2F4"
             android:layout_height="170dp"
             android:layout_marginRight="10dp"
             app:srcCompat="@drawable/pic_sample1" />
