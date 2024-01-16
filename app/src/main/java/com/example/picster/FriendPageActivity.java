@@ -45,7 +45,11 @@ public class FriendPageActivity extends AppCompatActivity {
         previousAct = getIntent().getStringExtra("previousAct");
 
         navigationView = findViewById(R.id.bottom_navigation);
-        navigationView.setSelectedItemId(R.id.navigation_home);
+        if (previousAct.equals("dashboard")) {
+            navigationView.setSelectedItemId(R.id.navigation_home);
+        } else {
+            navigationView.setSelectedItemId(R.id.navigation_bookmarks);
+        }
         navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

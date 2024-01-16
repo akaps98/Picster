@@ -201,8 +201,14 @@ public class FriendFeedActivity extends AppCompatActivity {
                 }
             }
         });
+
         navigationView = findViewById(R.id.bottom_navigation);
-        navigationView.setSelectedItemId(R.id.navigation_home);
+        if (previousAct.equals("dashboard")) {
+            navigationView.setSelectedItemId(R.id.navigation_home);
+        } else {
+            navigationView.setSelectedItemId(R.id.navigation_bookmarks);
+        }
+
         navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
