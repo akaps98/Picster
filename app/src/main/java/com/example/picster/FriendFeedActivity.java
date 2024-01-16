@@ -1,9 +1,11 @@
 package com.example.picster;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -244,6 +246,29 @@ public class FriendFeedActivity extends AppCompatActivity {
                 intent.putExtra("friendUsername", feed.getUsername());
                 intent.putExtra("previousAct", previousAct);
                 startActivity(intent);
+            }
+        });
+
+        ImageView optionBtn = findViewById(R.id.optionBtn);
+        optionBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(FriendFeedActivity.this);
+                builder.setMessage("Do you want to report this feed?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // report to super user
+                                // Boolean field named "reported"
+                                // change reported to true
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .show();
             }
         });
     }
