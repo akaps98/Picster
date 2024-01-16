@@ -47,6 +47,7 @@ public class FriendFeedActivity extends AppCompatActivity {
     TextView likeNumber, commentNumber;
     Feed feed;
     List<Comment> comments;
+    String previousAct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,7 @@ public class FriendFeedActivity extends AppCompatActivity {
         FirebaseFirestore database = FirebaseFirestore.getInstance();
 
         feed = (Feed) getIntent().getSerializableExtra("clickedFeed");
+        previousAct = getIntent().getStringExtra("previousAct");
 
         TextView feedUserName = findViewById(R.id.feedUserName);
         TextView feedDate = findViewById(R.id.feedDate);
@@ -87,8 +89,13 @@ public class FriendFeedActivity extends AppCompatActivity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
-                startActivity(intent);
+                if (previousAct.equals("dashboard")) {
+                    Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(getApplicationContext(), BookmarkActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 

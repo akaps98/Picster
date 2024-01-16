@@ -107,6 +107,7 @@ public class BookmarkActivity extends AppCompatActivity {
 
                                                 Intent intent = new Intent(BookmarkActivity.this, FriendFeedActivity.class);
                                                 intent.putExtra("clickedFeed", clickedFeed);
+                                                intent.putExtra("previousAct", "bookmark");
                                                 startActivity(intent);
                                             }
                                         });

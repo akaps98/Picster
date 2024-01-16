@@ -122,6 +122,7 @@ public class DashboardActivity extends AppCompatActivity {
 
                                                 Intent intent = new Intent(DashboardActivity.this, FriendFeedActivity.class);
                                                 intent.putExtra("clickedFeed", clickedFeed);
+                                                intent.putExtra("previousAct", "dashboard");
                                                 startActivity(intent);
                                             }
                                         });
