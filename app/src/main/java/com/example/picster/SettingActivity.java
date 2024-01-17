@@ -64,7 +64,6 @@ public class SettingActivity extends AppCompatActivity {
         changePasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (user != null) {
                     String email = user.getEmail();
 
@@ -136,6 +135,9 @@ public class SettingActivity extends AppCompatActivity {
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                logoutButton.animate().alpha(0.2f).setDuration(150).withEndAction(() -> {
+                    logoutButton.animate().alpha(1.0f).setDuration(150).start();
+                }).start();
                 if (user != null) {
                     auth.signOut();
                     mGoogleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {

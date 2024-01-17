@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/white"
+    tools:context=".AdminActivity">
+
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="350dp"
+        android:layout_height="65dp"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:src="@drawable/title_logo" />
+
+    <TextView
+        android:id="@+id/textView123"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="35dp"
+        android:layout_marginVertical="5dp"
+        android:fontFamily="@font/sourcesanspro_bold"
+        android:text="Reported feeds"
+        android:textColor="@color/skyBlue"
+        android:textSize="32dp" />
+
+    <ListView
+        android:id="@+id/adminFeedListView"
+        android:layout_width="match_parent"
+        android:layout_height="470dp"
+        android:layout_marginBottom="145dp" />
+
+    <Button
+        android:id="@+id/logoutButton"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="-140dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/ic_setting_logout" />
+
+</LinearLayout>

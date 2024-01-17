@@ -94,10 +94,10 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if(task.isSuccessful()) {
-                                    if(email.equals("admin@gmail.com")) { // admin
+                                    if(email.equals("admin@email.com")) { // admin
                                         Toast.makeText(MainActivity.this, "Hello, admin!", Toast.LENGTH_SHORT).show();
-//                                        Intent intent = new Intent(MainActivity.this, AdminActivity.class);
-//                                        startActivity(intent);
+                                        Intent intent = new Intent(MainActivity.this, AdminActivity.class);
+                                        startActivity(intent);
                                     } else { // user
                                         Toast.makeText(MainActivity.this, "Log in Success!", Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
