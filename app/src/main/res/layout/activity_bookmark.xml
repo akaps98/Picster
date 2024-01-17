@@ -15,14 +15,22 @@
         android:layout_centerHorizontal="true"
         android:src="@drawable/title_logo" />
 
-
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Bookmark Page"
-        android:textAlignment="center"
-        android:textSize="30dp" />
+        android:text="My Archives"
+        android:layout_marginBottom="10dp"
+        android:textAlignment="textStart"
+        android:fontFamily="@font/sourcesanspro_bold"
+        android:textColor="@color/skyBlue"
+        android:layout_marginHorizontal="15dp"
+        android:textSize="27dp" />
+
+    <ListView
+        android:id="@+id/feedListView"
+        android:layout_width="match_parent"
+        android:layout_height="579dp"></ListView>
 
     <LinearLayout
         android:layout_width="match_parent"

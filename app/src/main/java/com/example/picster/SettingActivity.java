@@ -162,6 +162,15 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
+        Button friendList = findViewById(R.id.friendListButton);
+        friendList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingActivity.this, FriendListActivity.class);
+                startActivity(intent);
+            }
+        });
+
         navigationView.setSelectedItemId(R.id.navigation_setting);
 
         navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

@@ -76,15 +76,7 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
-//        Button viewFeedBtn = findViewById(R.id.viewFeedButton);
-//        viewFeedBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getApplicationContext(), FriendFeedActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//
+
 //        Button viewFriendPageBtn = findViewById(R.id.viewFriendPageButton);
 //        viewFriendPageBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -130,6 +122,7 @@ public class DashboardActivity extends AppCompatActivity {
 
                                                 Intent intent = new Intent(DashboardActivity.this, FriendFeedActivity.class);
                                                 intent.putExtra("clickedFeed", clickedFeed);
+                                                intent.putExtra("previousAct", "dashboard");
                                                 startActivity(intent);
                                             }
                                         });

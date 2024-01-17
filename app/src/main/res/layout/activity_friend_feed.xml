@@ -49,6 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Username"
+            android:textStyle="bold"
             android:layout_gravity="center"
             android:textColor="#000000"
             android:textSize="20dp" />
@@ -78,6 +79,7 @@
                 android:id="@+id/feedPicture"
                 android:layout_width="300dp"
                 android:layout_height="300dp"
+                android:background="#E7F2F4"
                 app:srcCompat="@drawable/pic_sample1" />
 
             <TextView
@@ -99,8 +101,8 @@
 
                 <ImageView
                     android:id="@+id/imageView5"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     app:srcCompat="@drawable/heart_fill" />
 
                 <TextView
@@ -114,8 +116,8 @@
 
                 <ImageView
                     android:id="@+id/imageView6"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_marginLeft="3dp"
                     app:srcCompat="@drawable/comment" />
 
@@ -130,23 +132,35 @@
 
                 <ImageView
                     android:id="@+id/likeImage"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="39dp"
+                    android:layout_height="33dp"
                     android:layout_marginLeft="120dp"
                     android:layout_marginRight="3dp"
                     app:srcCompat="@drawable/heart_empty" />
 
                 <ImageView
                     android:id="@+id/saveImage"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="33dp"
+                    android:layout_height="33dp"
                     app:srcCompat="@drawable/save_empty" />
+                <ImageView
+                    android:id="@+id/optionBtn"
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="27dp"
+                    android:layout_height="27dp"
+                    app:srcCompat="@drawable/options" />
             </LinearLayout>
 
-            <ListView
-                android:id="@+id/commentList"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:orientation="horizontal">
+                <ListView
+                    android:id="@+id/commentList"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -192,7 +206,9 @@
             </LinearLayout>
 
         </LinearLayout>
+
     </ScrollView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
@@ -208,4 +224,5 @@
             app:labelVisibilityMode="unlabeled"
             app:menu="@menu/bottom_navigation_menu" />
     </LinearLayout>
+
 </LinearLayout>
