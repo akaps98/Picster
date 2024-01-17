@@ -81,9 +81,8 @@ public class AdminActivity extends AppCompatActivity {
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             Feed clickedFeed = feeds.get(position);
 
-                            Intent intent = new Intent(AdminActivity.this, FriendFeedActivity.class);
+                            Intent intent = new Intent(AdminActivity.this, AdminFeedActivity.class);
                             intent.putExtra("clickedFeed", clickedFeed);
-                            intent.putExtra("previousAct", "dashboard");
                             startActivity(intent);
                         }
                     });
@@ -145,17 +144,13 @@ public class AdminActivity extends AppCompatActivity {
             ImageView feedImage = convertView.findViewById(R.id.feedImage);
             TextView feedUser = convertView.findViewById(R.id.feedUser);
             TextView feedText = convertView.findViewById(R.id.feedText);
-            TextView likeNumber = convertView.findViewById(R.id.likeNumber);
-            TextView commentNumber = convertView.findViewById(R.id.commentNumber);
             TextView feedDate = convertView.findViewById(R.id.feedDate);
             Button deletePostButton = convertView.findViewById(R.id.deletePostButton);
-            Button leavePostButton = convertView.findViewById(R.id.leavePostButton);
+            Button freePostButton = convertView.findViewById(R.id.freePostButton);
 
             Glide.with(AdminActivity.this).load(currentFeed.getImageUri()).into(feedImage);
             feedUser.setText(currentFeed.getUsername());
             feedText.setText(currentFeed.getContent());
-            likeNumber.setText(String.valueOf(currentFeed.getLikes()));
-            commentNumber.setText(String.valueOf(currentFeed.getComments().size()));
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd", Locale.getDefault());
             String formattedDate = sdf.format(new Date(Long.parseLong(currentFeed.getDate())));
             feedDate.setText(formattedDate);
@@ -180,7 +175,7 @@ public class AdminActivity extends AppCompatActivity {
                 }
             });
 
-            leavePostButton.setOnClickListener(new View.OnClickListener() {
+            freePostButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     FirebaseFirestore db = FirebaseFirestore.getInstance();

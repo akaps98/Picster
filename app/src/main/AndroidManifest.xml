@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Picster"
         tools:targetApi="31">
         <activity
+            android:name=".AdminFeedActivity"
+            android:exported="false" />
+        <activity
             android:name=".AdminActivity"
             android:exported="false" />
         <activity
