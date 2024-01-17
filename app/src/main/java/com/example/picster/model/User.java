@@ -8,6 +8,8 @@ public class User {
     private boolean VIP; // isPaid?
     private List<String> friends;
     private CreditCard creditCard;
+    private List<String> like;
+    private List<String> save;
 
     public User() {
         this.email = "";
@@ -15,6 +17,8 @@ public class User {
         this.VIP = false;
         this.friends = new ArrayList<>();
         this.creditCard = new CreditCard();
+        this.like = new ArrayList<>();
+        this.save = new ArrayList<>();
     }
 
     public User(String email) {
@@ -23,6 +27,8 @@ public class User {
         this.VIP = false;
         this.friends = new ArrayList<>();
         this.creditCard = new CreditCard();
+        this.like = new ArrayList<>();
+        this.save = new ArrayList<>();
     }
 
     public User(String email, String username) {
@@ -31,6 +37,8 @@ public class User {
         this.VIP = false;
         this.friends = new ArrayList<>();
         this.creditCard = new CreditCard();
+        this.like = new ArrayList<>();
+        this.save = new ArrayList<>();
     }
 
     public String getEmail() {
@@ -71,5 +79,21 @@ public class User {
 
     public void setCreditCard(CreditCard creditCard) {
         this.creditCard = creditCard;
+    }
+
+    public List<String> getLike() {
+        return like;
+    }
+
+    public void setLike(List<String> like) {
+        this.like = like;
+    }
+
+    public List<String> getSave() {
+        return save;
+    }
+
+    public void setSave(List<String> save) {
+        this.save = save;
     }
 }

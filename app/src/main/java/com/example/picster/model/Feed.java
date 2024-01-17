@@ -18,11 +18,12 @@ public class Feed implements Serializable {
     private int likes;
     private Boolean isPublic;
     private List<Comment> comments;
+    private Boolean reported;
 
     public Feed() {
     }
 
-    public Feed(String id, String username, String date, String imageUri, String content, int likes, boolean isPublic, List<Comment> comments) {
+    public Feed(String id, String username, String date, String imageUri, String content, int likes, boolean isPublic, List<Comment> comments, Boolean reported) {
         this.id = id;
         this.username = username;
         this.date = date;
@@ -31,6 +32,7 @@ public class Feed implements Serializable {
         this.likes = likes;
         this.isPublic = isPublic;
         this.comments = comments;
+        this.reported = reported;
     }
     public String getId() {
         return id;
@@ -94,5 +96,13 @@ public class Feed implements Serializable {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public Boolean getReported() {
+        return reported;
+    }
+
+    public void setReported(Boolean reported) {
+        this.reported = reported;
     }
 }

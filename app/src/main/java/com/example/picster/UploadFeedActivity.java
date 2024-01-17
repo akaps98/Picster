@@ -198,7 +198,8 @@ public class UploadFeedActivity extends AppCompatActivity {
                                                 content,
                                                 0,
                                                 isPublic,
-                                                comments
+                                                comments,
+                                                false
                                         );
                                         FirebaseFirestore database = FirebaseFirestore.getInstance();
 

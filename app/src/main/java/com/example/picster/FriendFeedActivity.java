@@ -264,9 +264,7 @@ public class FriendFeedActivity extends AppCompatActivity {
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                // report to super user
-                                // Boolean field named "reported"
-                                // change reported to true
+                                // change reported field to true
                             }
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
