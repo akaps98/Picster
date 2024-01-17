@@ -143,7 +143,7 @@ public class MyPageActivity extends AppCompatActivity {
 
                             for (DocumentSnapshot document : task.getResult().getDocuments()) {
                                 Feed feed = document.toObject(Feed.class);
-                                if (feed != null) {
+                                if (feed != null && !feed.getReported()) {
                                     feedList.add(feed);
                                 }
                             }

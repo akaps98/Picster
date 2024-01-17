@@ -91,7 +91,7 @@ public class BookmarkActivity extends AppCompatActivity {
                                         for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                                             Feed feed = document.toObject(Feed.class);
 
-                                            if (saved.contains(document.getId())) {
+                                            if (saved.contains(document.getId()) && !feed.getReported()) {
                                                 feeds.add(feed);
                                             }
                                         }

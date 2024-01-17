@@ -203,7 +203,7 @@ public class UploadFeedActivity extends AppCompatActivity {
                                         );
                                         FirebaseFirestore database = FirebaseFirestore.getInstance();
 
-                                        database.collection("Feed").document(userEmail+String.valueOf(System.currentTimeMillis())).set(feed)
+                                        database.collection("Feed").document(newFeedRef).set(feed)
                                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                     @Override
                                                     public void onSuccess(Void aVoid) {

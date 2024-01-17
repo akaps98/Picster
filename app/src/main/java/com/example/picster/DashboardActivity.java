@@ -76,16 +76,6 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
-
-//        Button viewFriendPageBtn = findViewById(R.id.viewFriendPageButton);
-//        viewFriendPageBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getApplicationContext(), FriendPageActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             String userEmail = currentUser.getEmail();
@@ -104,7 +94,7 @@ public class DashboardActivity extends AppCompatActivity {
                                             Feed feed = document.toObject(Feed.class);
 
                                             for (String friend : friends) {
-                                                if (feed.getId().contains(friend)) {
+                                                if (feed.getId().contains(friend) && !feed.getReported()) {
                                                     feeds.add(feed);
                                                     break;
                                                 }

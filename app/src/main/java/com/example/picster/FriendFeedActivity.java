@@ -264,7 +264,21 @@ public class FriendFeedActivity extends AppCompatActivity {
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                // change reported field to true
+                                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                db.collection("Feed").document(feed.getId())
+                                        .update("reported", true)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Toast.makeText(FriendFeedActivity.this, "Feed reported successfully", Toast.LENGTH_SHORT).show();
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(FriendFeedActivity.this, "Failed to report feed", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
                             }
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
