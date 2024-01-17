@@ -47,8 +47,10 @@ public class FriendPageActivity extends AppCompatActivity {
         navigationView = findViewById(R.id.bottom_navigation);
         if (previousAct.equals("dashboard")) {
             navigationView.setSelectedItemId(R.id.navigation_home);
-        } else {
+        } else if (previousAct.equals("bookmark")){
             navigationView.setSelectedItemId(R.id.navigation_bookmarks);
+        } else {
+            navigationView.setSelectedItemId(R.id.navigation_setting);
         }
         navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -82,8 +84,11 @@ public class FriendPageActivity extends AppCompatActivity {
                 if (previousAct.equals("dashboard")) {
                     Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
                     startActivity(intent);
-                } else {
+                } else if (previousAct.equals("bookmark")){
                     Intent intent = new Intent(getApplicationContext(), BookmarkActivity.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(getApplicationContext(), FriendListActivity.class);
                     startActivity(intent);
                 }
             }
