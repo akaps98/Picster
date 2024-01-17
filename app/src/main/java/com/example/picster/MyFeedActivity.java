@@ -55,6 +55,7 @@ public class MyFeedActivity extends AppCompatActivity {
     ArrayList<String> liked;
     String userEmail;
     TextView likes, commentNum;
+    Boolean isVip;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,33 +121,6 @@ public class MyFeedActivity extends AppCompatActivity {
             }
         });
 
-        ImageView editBtn = findViewById(R.id.editBtn);
-        editBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(MyFeedActivity.this);
-                builder.setMessage("Do you wish to make this feed public?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                if (isVipUser()) {
-                                    feed.setPublic(true);
-                                    Toast.makeText(MyFeedActivity.this, "This feed is now set to public.", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Intent paymentIntent = new Intent(MyFeedActivity.this, PaymentActivity.class);
-                                    startActivity(paymentIntent);
-                                }
-                            }
-                        })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        })
-                        .show();
-            }
-        });
-
         Intent intent = getIntent();
         feed = (Feed) getIntent().getSerializableExtra("selectedFeed");
         username = intent.getStringExtra("username");
@@ -180,6 +154,7 @@ public class MyFeedActivity extends AppCompatActivity {
                     .addOnSuccessListener(documentSnapshot -> {
                         if (documentSnapshot.exists()) {
                             liked = (ArrayList<String>) documentSnapshot.get("like");
+                            isVip = (Boolean) documentSnapshot.get("vip");
 
                             if (liked.contains(feed.getId())) {
                                 likeBtn.setImageResource(R.drawable.heart_fill);
@@ -191,6 +166,52 @@ public class MyFeedActivity extends AppCompatActivity {
                         Toast.makeText(MyFeedActivity.this, "Failed to retrieve lists", Toast.LENGTH_SHORT).show();
                     });
         }
+
+
+        ImageView editBtn = findViewById(R.id.editBtn);
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean isPublic = feed.isPublic();
+                AlertDialog.Builder builder = new AlertDialog.Builder(MyFeedActivity.this);
+                if (isPublic) {
+                    builder.setMessage("This feed is public. Do you wish to make this feed private?")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    feed.setPublic(false);
+                                    updateFeedPublic(false);
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            })
+                            .show();
+                } else {
+                    builder.setMessage("Do you wish to make this feed public?")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    if (isVip) {
+                                        feed.setPublic(true);
+                                        updateFeedPublic(true);
+                                        } else {
+                                        Intent paymentIntent = new Intent(MyFeedActivity.this, PaymentActivity.class);
+                                        startActivity(paymentIntent);
+                                    }
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            })
+                            .show();
+                }
+            }
+        });
 
         likeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -346,11 +367,21 @@ public class MyFeedActivity extends AppCompatActivity {
                 });
     }
 
-    private boolean isVipUser() {
-        Boolean isVip = false; //default value
-
-        // get vip field of the user
-
-        return isVip;
+    private void updateFeedPublic(boolean isPublic) {
+        FirebaseFirestore.getInstance().collection("Feed")
+                .document(feed.getId())
+                .update("public", isPublic)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(MyFeedActivity.this, "Feed status updated successfully", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(MyFeedActivity.this, "Failed to update feed status", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }
