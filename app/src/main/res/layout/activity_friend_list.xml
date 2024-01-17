@@ -8,6 +8,7 @@
     android:gravity="center"
     android:background="@color/white"
     tools:context=".FriendListActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

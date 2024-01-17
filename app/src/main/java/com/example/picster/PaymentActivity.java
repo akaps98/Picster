@@ -3,18 +3,22 @@ package com.example.picster;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.picster.model.CreditCard;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -24,6 +28,7 @@ public class PaymentActivity extends AppCompatActivity {
     Spinner bankSelector;
     String[] bankList = {"Select bank...", "ACB", "Agribank", "BIDV", "EXIM BANK", "HSBC", "IBK", "KBANK", "MB BANK", "OCB", "SCB", "SHINHAN BANK", "VIETCOM BANK", "WOORI BANK"};
     EditText cardNumber;
+    BottomNavigationView navigationView;
     Button paymentButton;
     private FirebaseAuth auth = FirebaseAuth.getInstance();
 
@@ -35,6 +40,42 @@ public class PaymentActivity extends AppCompatActivity {
         bankSelector = findViewById(R.id.bankSelector);
         cardNumber = findViewById(R.id.cardNumber);
         paymentButton = findViewById(R.id.paymentButton);
+
+        navigationView = findViewById(R.id.bottom_navigation);
+        navigationView.setSelectedItemId(R.id.navigation_setting);
+        navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int selected = item.getItemId();
+
+                if (selected == R.id.navigation_search) {
+                    Intent searchIntent = new Intent(PaymentActivity.this, SearchActivity.class);
+                    startActivityForResult(searchIntent, 1);
+                } else if (selected == R.id.navigation_bookmarks) {
+                    Intent bookmarkIntent = new Intent(PaymentActivity.this, BookmarkActivity.class);
+                    startActivityForResult(bookmarkIntent, 2);
+                } else if (selected == R.id.navigation_home) {
+                    Intent homeIntent = new Intent(PaymentActivity.this, DashboardActivity.class);
+                    startActivityForResult(homeIntent, 3);
+                } else if (selected == R.id.navigation_user) {
+                    Intent myPageIntent = new Intent(PaymentActivity.this, MyPageActivity.class);
+                    startActivityForResult(myPageIntent, 4);
+                } else if (selected == R.id.navigation_setting) {
+                    Intent myPageIntent = new Intent(PaymentActivity.this, SettingActivity.class);
+                    startActivityForResult(myPageIntent, 4);
+                }
+                return true;
+            }
+        });
+
+        ImageView backBtn = findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SettingActivity.class);
+                startActivity(intent);
+            }
+        });
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, bankList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
