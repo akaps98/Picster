@@ -69,10 +69,9 @@ public class MainActivity extends AppCompatActivity {
 
         GoogleSignInAccount gsa = GoogleSignIn.getLastSignedInAccount(MainActivity.this);
 
-        // 자동 로그인 기능 - 한 번 유저가 구글 로그인으로 로그인 했던 기록 있으면 로그아웃 전까지 자동 로그인됨 (유저 편의성)
-//        if(gsa != null) {
-//            Toast.makeText(MainActivity.this, "Log in Success!", Toast.LENGTH_SHORT).show();
-//        }
+        if(gsa != null) {
+            Toast.makeText(MainActivity.this, "Log in Success!", Toast.LENGTH_SHORT).show();
+        }
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
@@ -88,6 +87,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String email = inputEmail.getText().toString();
                 String password = inputPassword.getText().toString();
+
+                if (email.isEmpty() || password.isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Please enter email and password.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 firebaseAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
