@@ -56,6 +56,7 @@ public class MyFeedActivity extends AppCompatActivity {
     String userEmail;
     TextView likes, commentNum;
     Boolean isVip;
+    private CommentAdapter commentAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -250,10 +251,9 @@ public class MyFeedActivity extends AppCompatActivity {
             }
         });
 
+        commentAdapter = new CommentAdapter(this, comments);
         ListView commentListView = findViewById(R.id.commentList);
-        CommentAdapter commentAdapter = new CommentAdapter(this, comments);
         commentListView.setAdapter(commentAdapter);
-
 
         EditText commentNew = findViewById(R.id.editTextComment);
         ImageView commentBtn = findViewById(R.id.commentBtn);
@@ -298,6 +298,10 @@ public class MyFeedActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(MyFeedActivity.this, "Comment added successfully", Toast.LENGTH_SHORT).show();
+
+                        comments.add(newComment);
+                        commentAdapter.notifyDataSetChanged();
+
                         int newNum = feed.getComments().size() + 1;
                         commentNum.setText(String.valueOf(newNum));
                     }

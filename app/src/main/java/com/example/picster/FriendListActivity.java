@@ -33,6 +33,7 @@ public class FriendListActivity extends AppCompatActivity {
     FirebaseFirestore firestore;
 
     DocumentReference userDocument;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

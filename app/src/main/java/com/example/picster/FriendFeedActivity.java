@@ -49,6 +49,7 @@ public class FriendFeedActivity extends AppCompatActivity {
     TextView likeNumber, commentNumber;
     Feed feed;
     List<Comment> comments;
+    CommentAdapter commentAdapter;
     String previousAct;
 
     @Override
@@ -82,9 +83,8 @@ public class FriendFeedActivity extends AppCompatActivity {
         EditText commentNew = findViewById(R.id.editTextComment);
         ImageView commentBtn = findViewById(R.id.commentBtn);
 
-
+        commentAdapter = new CommentAdapter(this, comments);
         ListView commentListView = findViewById(R.id.commentList);
-        FriendFeedActivity.CommentAdapter commentAdapter = new FriendFeedActivity.CommentAdapter(this, comments);
         commentListView.setAdapter(commentAdapter);
 
         ImageView backBtn = findViewById(R.id.backBtn);
@@ -301,6 +301,10 @@ public class FriendFeedActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(FriendFeedActivity.this, "Comment added successfully", Toast.LENGTH_SHORT).show();
+
+                        comments.add(newComment);
+                        commentAdapter.notifyDataSetChanged();
+
                         int newNum = feed.getComments().size() + 1;
                         commentNumber.setText(String.valueOf(newNum));
                     }
